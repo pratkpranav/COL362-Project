@@ -1,0 +1,236 @@
+{% extends "base.html" %} {% block title %}  {{blogData.blogName}} {%
+    endblock %} 
+    
+    {% block content %}
+    <center>
+    <h1>
+        {{blogData.blogName}}
+    </h1>
+    </center>
+    <div class="row">
+    <div class="col-md-7" style="padding: 4%; background-color: white;">
+
+                <img class="img-fluid" src="{{url_for('static', filename='blogs/'+blogData.blogId|string + '.png' )}}" 
+                style="width: 100%;"
+                alt="Image">
+    
+      </div>
+    <div class="col-md-2" style="padding: 4%; background-color: white;">
+        <form action="/blog/{{blogData.blogId}}/liked" method="post">
+        <button class="btn btn-like">
+            <span class="btn-icon btn--icon-default">
+                <span class="fa fa-heart"></span>
+            </span>
+            <span class="btn-icon btn--icon-liked">
+                <span class="fa fa-heart"></span>
+            </span>
+            {% if liked == 1 %}
+                <!-- <div class="btn-content  btn-content--liked"> -->
+                    {{blogData.like_count}} Liked
+                <!-- </div> -->
+            {%else %}
+                <!-- <div class="btn-content btn-content--default"> -->
+                {{blogData.like_count}} Like
+                <!-- </div> -->
+            {%endif%}
+        </button>
+    </form>
+    </div>
+    <div class="col-md-2" style="padding: 4%; background-color: white;">
+        <form action="/blog/{{blogData.blogId}}/report" method="post">
+            <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+
+            <button class="noselect">
+            {% if reported == 1%}
+                Reported
+            {% else %}
+                Report
+            {% endif %}
+            </button>
+    </form>
+    </div>
+    </div>
+    <style>
+        h1 { color: #ffffff; font-family: 'Lato', sans-serif; font-size: 54px; font-weight: 300; line-height: 58px; margin: 0 0 58px; }
+
+
+
+        a { color: #fe921f; text-decoration: underline; }
+
+
+        a:hover { color: #ffffff }
+
+        :root {
+            --red: rgb(209, 3, 3);
+            --white: #fff;
+            --black: #000;
+        }
+        .btn {
+            width: 200px; height: 88px;
+            outline: 0;
+            border: 2px solid #ccc;
+            color: #000;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            display:flex;
+            justify-content: space-between;
+            box-shadow: 0px 3px 25px rgba(0, 0, 0, 0.05);
+            transition: 1.5s cubic-bezier(.21,.04,.26,.99);
+        }
+        .btn:hover {
+            box-shadow: 0px 3px 25px rgba(0, 0, 0, 0.2);
+            border-color: var(--red);
+        }
+        .btn-like {
+            padding: 1.5rem 1.5rem 1.5rem 6rem;
+            font-size: 2rem;
+            border-radius: 10px;
+            background: #fff;
+            transition: 1.5s cubic-bezier(.21,.04,.26,.99);
+        }
+        .btn-like.liked {
+            background: var(--red);
+            border-color: var(--red);
+        }
+        /*-- Button Icon -- */
+        .btn-icon {
+            display: inline-block;
+            width: 32px;
+            height: 36px;
+            position: absolute;
+            left: 1.5rem;
+            transition: 1s cubic-bezier(.21,.04,.26,.99);
+            transform: rotate(0deg)
+        }
+        .btn:hover .btn-icon {
+            color: var(--red);
+        }
+        .btn.liked:hover .btn-icon {
+            color: var(--black);
+        }
+        .liked .btn--icon-default {
+            transform: rotate(-90deg)
+        }
+        .btn:not(.liked).btn--icon-liked {
+            transform: rotate(-90deg)
+        }
+        .liked .btn--icon-default,
+        .btn--icon-liked {
+            opacity: 0;
+            color: #fff;
+            position: absolute;
+        }
+        .btn--icon-default,
+        .liked .btn--icon-liked {
+            opacity: 1;
+            left: 1.5rem;
+        }
+        /*-- Button Content -- */
+        .btn-content {
+            transition: transform 0.1s ease;
+            display: inline-block;
+            /* position: absolute;
+            right: 0; */
+        }
+        .liked .btn-content {
+            color: var(--white);
+        }
+        .btn:hover.liked .btn-content {
+            color: var(--black);
+        }
+        .btn:not(.liked) .btn-content--liked {
+            transform: translate(110px)
+        }
+        .btn:not(.liked) .btn-content--default {
+            transform: translate(-56px)
+        }
+        .liked .btn-content--default {
+            transform: translate(24px)
+        }
+        /* * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #5b6467;
+            background-image: linear-gradient(315deg, #5b6467 0%, #8b939a 74%);
+        } */
+
+        .noselect {
+        -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+                -ms-user-select: none;
+                    user-select: none;
+                -webkit-tap-highlight-color: transparent;
+        }
+
+        .noselect {
+            width: 150px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 20px;
+            font-family: 'Staatliches', cursive;
+            letter-spacing: 5px;
+            background: #ffc421;
+            border: 2px solid black;
+            box-shadow: 0px 0px 0px rgba(0,0,0,0.4);
+            transition: 500ms;
+        }
+
+        .noselect:after {
+            content: '';
+            position: absolute;
+            transform: translateX(-55px) translateY(-40px);
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: transparent;
+            box-shadow: 0px 0px 50px transparent;
+            transition: 500ms;
+        }
+
+        .noselect:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 10px rgba(0,0,0,0.4);
+        }
+
+        .noselect:hover:after {
+            background: white;
+            box-shadow: 0px 0px 20px #ffc421, 0px 0px 30px #ffc421, inset 0px 0px 10px #ffc421;
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin{
+            25%{transform: translateX(-25px) translateY(-35px);
+                    width: 15px;
+                    height: 15px;}
+            50% {transform: translateX(-55px) translateY(-30px);
+                    width: 5px;
+                    height: 5px;}
+            75% {transform: translateX(-85px) translateY(-35px);
+                    width: 15px;
+                    height: 15px;}
+        }
+
+        .noselect:focus {
+            outline: none;
+        }
+    </style>
+    <script>
+        const button = document.querySelector('.btn')
+        button.addEventListener('click', () => {
+        button.classList.toggle('liked')
+
+        })
+    </script>
+    {% endblock %}

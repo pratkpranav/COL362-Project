@@ -1,0 +1,44 @@
+{% extends "base.html" %} {% block title %} Blogs {%
+    endblock %} 
+    
+    {% block content %}
+    <div class="col-md-9 mr-auto">
+      {% for blog in blogs %}
+              <a href="{{ url_for('views.blogInfo', blogId=blog[0])}}">
+                <h1>
+            
+                {{ blog[1] }}
+            </h1>
+          
+          <div class = "crop">
+            <img class="img-fluid" src="{{url_for('static', filename='blogs/'+blog[0]|string + '.png' )}}" 
+            style="width: 100%;"
+            alt="Image">
+          </div>  
+              </a>
+            {% endfor %}
+
+    </div>
+
+
+  <style>
+    .crop {
+          width: 1400px;
+          height: 400px;
+          overflow: hidden;
+      }
+  
+      h1 { color: #ffffff; font-family: 'Lato', sans-serif; font-size: 54px; font-weight: 300; line-height: 58px; margin: 0 0 58px; }
+
+      a { color: #fe921f; text-decoration: underline; }
+
+
+      a:hover { color: #ffffff }
+
+      /* .crop img {
+          width: 1000px;
+          height: 300px;
+          margin: -75px 0 0 -100px;
+      } */
+  </style>
+    {% endblock %}

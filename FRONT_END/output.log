@@ -1,0 +1,159 @@
+Line No. : 778 - Fetching upcoming contests
+Line No. : 780 - Query: 
+                SELECT *
+                FROM contests
+                WHERE contests.status = 'UPCOMING';
+            
+Line No. : 785 - []
+Line No. : 792 - Fetching ongoing contests successful
+Line No. : 759 - Fetching ongoing contests
+Line No. : 761 - Query: 
+                SELECT *
+                FROM contests
+                WHERE contests.status = 'ONGOING';
+            
+Line No. : 766 - []
+Line No. : 773 - Fetching ongoing contests successful
+Line No. : 416 - Problem with index: C in contest: 1358 is requested
+Line No. : 735 - Fetching contest with id: 1358
+Line No. : 738 - Query: 
+                SELECT *
+                FROM contests
+                WHERE contests.contestId = 1358;
+            
+Line No. : 751 - Fetching contest successful
+Line No. : 421 - Timing Plot Get contest: 0.008321
+Line No. : 713 - Fetching problem with index: C in contest: 1358 form database
+Line No. : 716 - Query 
+                SELECT *
+                FROM problems
+                WHERE problems.problemIndex = 'C' AND problems.contestId = 1358;
+            
+Line No. : 721 - [('Celex Update', 1358, 'C', 1600, ['math'], 1500, 'problemSet/1358/C.png')]
+Line No. : 728 - Fetching problem successful
+Line No. : 429 - Timing Plot get problems: 0.008913
+Line No. : 39 - Querying User with Handle col362_ta:
+Line No. : 48 - 
+                        SELECT *
+                        FROM users
+                        WHERE users.handle = 'col362_ta';
+                   
+Line No. : 53 - [('col362_ta', 'TA', '', 'India', 1500, 0, 'sha256$gmzQ13vro0OYgW8A$8bc032818d07f0dd87b040c210218705eda8c669ad89daafe82aa15f1e9e1087')]
+Line No. : 113 - 127.0.0.1 - - [01/Mar/2022 11:30:17] "[37mGET /contest/1358/problem/C HTTP/1.1[0m" 200 -
+Line No. : 113 - 127.0.0.1 - - [01/Mar/2022 11:30:17] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+Line No. : 113 - 127.0.0.1 - - [01/Mar/2022 11:30:18] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+Line No. : 113 - 127.0.0.1 - - [01/Mar/2022 11:30:18] "[36mGET /static/problemSet/1358/C.png HTTP/1.1[0m" 304 -
+Line No. : 1131 - Report function addition successful
+Line No. : 1137 - 
+                        CREATE OR REPLACE FUNCTION
+                        del_blog_on_report() RETURNS TRIGGER AS
+                        $BODY$
+                        BEGIN
+                            DELETE FROM blogs
+                            WHERE comments_count >= 5 ;
+                            RETURN old;
+                        END;
+                        $BODY$ 
+                        language plpgsql;
+                    
+Line No. : 1138 - Report trigger addition unsuccessful. Error 
+                        CREATE OR REPLACE FUNCTION
+                        del_blog_on_report() RETURNS TRIGGER AS
+                        $BODY$
+                        BEGIN
+                            DELETE FROM blogs
+                            WHERE comments_count >= 5 ;
+                            RETURN old;
+                        END;
+                        $BODY$ 
+                        language plpgsql;
+                    
+Line No. : 62 - Timing Plot delete triggers: 0.023355
+Line No. : 64 - Home page is requested
+Line No. : 130 - Querying database for 10 top rated users
+Line No. : 137 - User top rated query: 
+                        SELECT *
+                        FROM top_users
+                        LIMIT 10;;
+                    
+Line No. : 141 - creating view for top 100 rated users
+Line No. : 146 - View already exists!!
+Line No. : 149 - using top_users view for getting top rated users
+Line No. : 152 - [('tourist', 3809), ('Radewoosh', 3548), ('maroonrk', 3526), ('Benq', 3513), ('Um_nik', 3479), ('ksun48', 3400), ('ecnerwala', 3345), ('Petr', 3318), ('Rebelz', 3294), ('ko_osaga', 3261)]
+Line No. : 70 - Timing Plot Add top rated users: 0.017104
+Line No. : 164 - Querying database for 10 top contributors users
+Line No. : 171 - User top contributors query: 
+                        SELECT users.handle, users.contribution
+                        FROM users
+                        ORDER BY users.contribution DESC, users.rating DESC
+                        LIMIT 10;
+                    
+Line No. : 175 - [('adamant', 15), ('-is-this-fft-', 4), ('tourist', 1), ('Everule', 1), ('SecondThread', 1), ('SlavicG', 1), ('lighteningPegasus', 1), ('Radewoosh', 0), ('maroonrk', 0), ('Benq', 0)]
+Line No. : 75 - Timing Plot Add top contributors: 0.023595
+Line No. : 1037 - Fetching top blogs successful
+Line No. : 80 - Timing Plot Add top blogs: 0.011227
+Line No. : 39 - Querying User with Handle col362_ta:
+Line No. : 48 - 
+                        SELECT *
+                        FROM users
+                        WHERE users.handle = 'col362_ta';
+                   
+Line No. : 53 - [('col362_ta', 'TA', '', 'India', 1500, 0, 'sha256$gmzQ13vro0OYgW8A$8bc032818d07f0dd87b040c210218705eda8c669ad89daafe82aa15f1e9e1087')]
+Line No. : 113 - 127.0.0.1 - - [01/Mar/2022 11:30:19] "[37mGET / HTTP/1.1[0m" 200 -
+Line No. : 1131 - Report function addition successful
+Line No. : 1137 - 
+                        CREATE OR REPLACE FUNCTION
+                        del_blog_on_report() RETURNS TRIGGER AS
+                        $BODY$
+                        BEGIN
+                            DELETE FROM blogs
+                            WHERE comments_count >= 5 ;
+                            RETURN old;
+                        END;
+                        $BODY$ 
+                        language plpgsql;
+                    
+Line No. : 1138 - Report trigger addition unsuccessful. Error 
+                        CREATE OR REPLACE FUNCTION
+                        del_blog_on_report() RETURNS TRIGGER AS
+                        $BODY$
+                        BEGIN
+                            DELETE FROM blogs
+                            WHERE comments_count >= 5 ;
+                            RETURN old;
+                        END;
+                        $BODY$ 
+                        language plpgsql;
+                    
+Line No. : 62 - Timing Plot delete triggers: 0.016979
+Line No. : 64 - Home page is requested
+Line No. : 130 - Querying database for 10 top rated users
+Line No. : 137 - User top rated query: 
+                        SELECT *
+                        FROM top_users
+                        LIMIT 10;;
+                    
+Line No. : 141 - creating view for top 100 rated users
+Line No. : 146 - View already exists!!
+Line No. : 149 - using top_users view for getting top rated users
+Line No. : 152 - [('tourist', 3809), ('Radewoosh', 3548), ('maroonrk', 3526), ('Benq', 3513), ('Um_nik', 3479), ('ksun48', 3400), ('ecnerwala', 3345), ('Petr', 3318), ('Rebelz', 3294), ('ko_osaga', 3261)]
+Line No. : 70 - Timing Plot Add top rated users: 0.012945
+Line No. : 164 - Querying database for 10 top contributors users
+Line No. : 171 - User top contributors query: 
+                        SELECT users.handle, users.contribution
+                        FROM users
+                        ORDER BY users.contribution DESC, users.rating DESC
+                        LIMIT 10;
+                    
+Line No. : 175 - [('adamant', 15), ('-is-this-fft-', 4), ('tourist', 1), ('Everule', 1), ('SecondThread', 1), ('SlavicG', 1), ('lighteningPegasus', 1), ('Radewoosh', 0), ('maroonrk', 0), ('Benq', 0)]
+Line No. : 75 - Timing Plot Add top contributors: 0.016853
+Line No. : 1037 - Fetching top blogs successful
+Line No. : 80 - Timing Plot Add top blogs: 0.013749
+Line No. : 39 - Querying User with Handle col362_ta:
+Line No. : 48 - 
+                        SELECT *
+                        FROM users
+                        WHERE users.handle = 'col362_ta';
+                   
+Line No. : 53 - [('col362_ta', 'TA', '', 'India', 1500, 0, 'sha256$gmzQ13vro0OYgW8A$8bc032818d07f0dd87b040c210218705eda8c669ad89daafe82aa15f1e9e1087')]
+Line No. : 113 - 127.0.0.1 - - [01/Mar/2022 11:30:19] "[37mGET / HTTP/1.1[0m" 200 -

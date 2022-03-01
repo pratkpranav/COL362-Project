@@ -1,0 +1,215 @@
+{% extends "base.html" %} {% block title %} Problem   {% endblock %} {% block content
+%}
+
+
+
+
+
+<div class="container-fluid" style="background-color: white;">
+  <br />
+  <br />
+
+  <div class="row">
+
+  <div class="col-md-9">
+
+  <div class="card" style="height: fit-content;" >
+    <div class="card-body" style="outline-style:groove; outline-color: blue; outline-offset: 0px; outline-width: 2px; background-color: white;">
+
+    <h3 style="color: blue; text-align: left; padding: 0px;">  Ongoing Contests:  <h3>
+    <hr style="color: blue; background-color: blue;"> 
+
+        
+    <!-- TODO: add time and length in table --!>
+    <table class="table table-hover table-white" style="background-color: rgba(0,0,0,0) !important;">
+    <thead style="background-color: rgba(0,0,0,0); text-align: center;">
+      <tr>
+        <th scope="col" style="font-weight: 200;"> Name  </th>
+        <th scope="col" style="font-weight: 200;"> Link  </th>
+        <th scope="col" style="font-weight: 200;"> Time </th>
+      </tr>
+    </thead>
+    <tbody>
+
+    {% for contest in ongoing_contests %}
+          
+      <tr>
+        <td>
+          <h4 style="color: black; text-align:center; font-weight:200; font-family: Tahoma"> {{ contest.contestName }}  </h4>
+        </td>
+        <td> 
+        <a href="{{ url_for('views.contest_home', contestId=contest.contestId)}} "> Link </a>
+        </td>
+        <td>
+          <h3 style="color: black; text-align: center; font-weight:100; font-family: sans-serif"> {{ contest.contestDate }} </h3>
+        </td>
+        <td>
+          <a href='#'> Standings </a>
+          <!-- <h3 style="color: black; text-align: center;"> Finished </h3> --!>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+
+
+    </div>
+
+  </div>
+
+
+  <br />
+
+  <div class="card" style="height: fit-content;" >
+    <div class="card-body" style="outline-style:groove; outline-color: red; outline-offset: 0px; outline-width: 2px; background-color: white;">
+
+    <h3 style="color: blue; text-align: left; padding: 0px;">  Upcoming Contests:  <h3>
+    <hr style="color: blue; background-color: blue;"> 
+
+        
+    <!-- TODO: add time and length in table --!>
+    <table class="table table-hover table-white" style="background-color: rgba(0,0,0,0);">
+    <thead style="background-color: rgba(0,0,0,0); text-align: center;">
+      <tr>
+        <th scope="col" style="font-weight: 200;"> Name  </th>
+        <th scope="col" style="font-weight: 200;"> Link  </th>
+        <th scope="col" style="font-weight: 200;"> Time </th>
+      </tr>
+    </thead>
+    <tbody>
+
+    {% for contest in upcoming_contests %}
+          
+      <tr>
+        <td>
+          <h4 style="color: black; text-align:center; font-weight:200; font-family: Tahoma"> {{ contest.contestName }}  </h4>
+        </td>
+        <td> 
+          <a href="#"> Link </a>
+        </td>
+        <td>
+          <h3 style="color: black; text-align: center; font-weight:100; font-family: sans-serif"> {{ contest.contestDate }} </h3>
+        </td>
+        <td>
+          <a hred='#'> Contest Not Yet Started </a>
+          <!-- <h3 style="color: black; text-align: center;"> Finished </h3> --!>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+
+
+    </div>
+
+  </div>
+
+
+   
+
+  <br />
+
+
+  <div class="card" style="height: fit-content;" >
+    <div class="card-body" style="outline-style:groove; outline-color: lawngreen; outline-offset: 0px; outline-width: 2px; background-color: white;">
+
+    <h3 style="color: blue; text-align: left; padding: 0px;">  Past Contests:  <h3>
+    <hr style="color: blue; background-color: blue;"> 
+
+        
+    <!-- TODO: add time and length in table --!>
+    <table class="table table-hover table-white" style= "background-color: rgba(0,0,0,0); !important">
+    <thead style="background-color: rgba(0,0,0,0); text-align: center;">
+      <tr>
+      <th scope="col" style="font-weight: 200;"> Name  </th>
+      <th scope="col" style="font-weight: 200;"> Link  </th>
+      <th scope="col" style="font-weight: 200;"> Time </th>
+      </tr>
+    </thead>
+    <tbody style="background-color: transparent;">
+
+    {% for contest in finished_contests %}
+          
+      <tr>
+        <td>
+          <h4 style="color: black; text-align:center; font-weight:200; font-family: Tahoma"> {{ contest.contestName }}  </h4>
+        </td>
+        <td> 
+          <a href="{{ url_for('views.contest_home', contestId=contest.contestId)}} "> Link </a>
+        </td>
+        <td>
+          <h3 style="color: black; text-align: center; font-weight:100; font-family: sans-serif"> {{ contest.contestDate }} </h3>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+
+
+    </div>
+
+    
+
+  </div>
+
+  <div class="row justify-content-center">
+    <!--TODO: make this functioning --!>
+      {% if first_page    %}
+        <a href="#"> Prev Page </a>
+      {% else %}
+        <a href="{{ url_for('views.users') + '?pageNo=' + (curr_page-1)|string }}"> Prev Page </a>
+      {% endif %}
+
+      <a href="#"> {{ curr_page}} </a>
+
+      {% if last_page   %}
+        <a href="#"> Next Page </a>
+      {% else %}
+        <a href="{{ url_for('views.users') + '?pageNo=' + (curr_page+1)|string }}"> Next Page </a>
+      {% endif %}
+
+      ....
+    </div>
+
+  </div>
+  
+  <div class="col-md-3">
+  <div class="card">
+    <div class="card-body">
+      <h3 style="color: blue; text-align: left; padding: 0px;">  Recent Submissions  <h3>
+      <hr style="color: blue; background-color: blue;"> 
+
+      <table class="table table-hover table-white" style="background-color: rgba(0,0,0,0); !important">
+      <thead style="background-color: navajowhite; text-align: center;">
+        <tr>
+        <th scope="col"> Contest </th> 
+        </tr>
+      </thead>
+      <tbody>
+
+      {% for contest in recent_contests %}
+            
+        <tr>
+          <td>
+            <h4 href="{{ url_for('views.contest_home', contestId=contest.contestId)}} " style="color: black; text-align:center; font-weight:200; font-family: Tahoma"> {{ contest.contestName }}  </h4>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+      </table>
+
+
+
+    </div>
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,188 @@
+{% extends "base.html" %} {% block title %} Home {% endblock %} {% block content
+  %}
+  
+  <!-- <h1 align="center">Notes</h1> -->
+  
+  <div class="container-fluid" style="padding-left: 2%">
+    <div class="row">
+      <div class="col-md-3">
+  
+        <!--
+           -<div class="dropdown" style="min-width: 15% !important">
+           -  <input
+           -    type="text"
+           -    id="country_input"
+           -    onkeyup="search_user()"
+           -    placeholder="Country..."
+           -    style="
+           -      padding: 9px 12px 6px 27px;
+           -      font: 16px system-ui;
+           -      height: 100%;
+           -      width: 49% !important;
+           -      text-align: left;
+           -    "
+           -  />
+           -->
+  <!--
+     -              <label> Country </label>
+     -              <select name="country_select" id="country">
+     -              <div class="dropdown-content" id="country_dropdown" style="max-height: 400px; overflow: scroll; min-width: 40%;"> 
+     -                  {% for country in countries %} 
+     -                  <option value="{{country[0]}}"> {{ country[0] }} </option>
+     -                  <a href="{{ url_for('views.users') + '?country=' +country[0] }}">{{ country[0] }}</a> 
+     -                   {% endfor %}
+     -                   </div>  
+     -                </div> 
+     -              </select>
+     -
+     -->
+  
+  
+          <table class="table table-hover table-light">
+            <caption
+              style="
+                caption-side: top;
+                background-color: white;
+                font-size: larger;
+                text-align: center;
+                color: black;
+                font-family: 'Times New Roman', Times, serif;
+              "
+            >
+              Top Rated
+            </caption>
+            <thead style="background-color: navajowhite">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">User</th>
+                <th scope="col">Rating</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for user in top_rated_users %}
+  
+              <!--Users is a 2 tuple (handle, rating) -->
+  
+              {% if loop.index % 2 == 0 %}
+              <tr>
+                <td>{{ loop.index }}</td>
+                <td>
+                  <a href="{{url_for('views.profile', handle=user[0]) }} ">
+                    {{ user[0] }}</a
+                  >
+                </td>
+                <td>{{ user[1] }}</td>
+              </tr>
+              {% else %}
+              <tr style="background-color: lightgray">
+                <td>{{ loop.index }}</td>
+                <td>
+                  <a href="{{url_for('views.profile', handle=user[0]) }} ">
+                    {{ user[0] }}</a
+                  >
+                </td>
+                <td>{{ user[1] }}</td>
+              </tr>
+              {%endif%} {% endfor %}
+            </tbody>
+          </table>
+  
+          <br />
+          <br />
+  
+          <table class="table table-hover table-light">
+            <caption
+              style="
+                caption-side: top;
+                background-color: white;
+                font-size: larger;
+                text-align: center;
+                color: black;
+                font-family: 'Times New Roman', Times, serif;
+              "
+            >
+              Top Contributors
+            </caption>
+            <thead style="background-color: navajowhite">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">User</th>
+                <th scope="col">Contributions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for user in top_contributors_users %}
+  
+              <!--Users is a 2 tuple (handle, rating) -->
+  
+              {% if loop.index % 2 == 0 %}
+              <tr>
+                <td>{{ loop.index }}</td>
+                <td>
+                  <a href="{{url_for('views.profile', handle=user[0]) }} ">
+                    {{ user[0] }}</a
+                  >
+                </td>
+                <td>{{ user[1] }}</td>
+              </tr>
+              {% else %}
+              <tr style="background-color: lightgray">
+                <td>{{ loop.index }}</td>
+                <td>
+                  <a href="{{url_for('views.profile', handle=user[0]) }} ">
+                    {{ user[0] }}</a
+                  >
+                </td>
+                <td>{{ user[1] }}</td>
+              </tr>
+              {%endif%} {% endfor %}
+            </tbody>
+          </table>
+        </div>
+  
+        <div class="col-md-9 mr-auto">
+          {% for blog in top_blogs %}
+                  <a href="{{ url_for('views.blogInfo', blogId=blog[0])}}">
+                    <h1>
+                
+                    {{ blog[1] }}
+                </h1>
+              
+              <div class = "crop">
+                <img class="img-fluid" src="{{url_for('static', filename='blogs/'+blog[0]|string + '.png' )}}" 
+                style="width: 100%;"
+                alt="Image">
+              </div>  
+                  </a>
+                {% endfor %}
+    
+        </div>
+  
+      </div>
+    </div>
+  
+  
+  
+  <style>
+    .crop {
+          width: 1400px;
+          height: 400px;
+          overflow: hidden;
+      }
+  
+      h1 { color: #ffffff; font-family: 'Lato', sans-serif; font-size: 54px; font-weight: 300; line-height: 58px; margin: 0 0 58px; }
+
+      a { color: #fe921f; text-decoration: underline; }
+
+
+      a:hover { color: #ffffff }
+
+      /* .crop img {
+          width: 1000px;
+          height: 300px;
+          margin: -75px 0 0 -100px;
+      } */
+  </style>
+    {% endblock %}
+  </div>
+  

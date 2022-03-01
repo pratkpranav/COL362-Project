@@ -1,0 +1,230 @@
+{% extends "base.html" %} {% block title%} Search Users {% endblock %} {% block
+content %}
+
+<div class="container-fluid">
+  <form method= "POST" id="form">
+    <input class="form-control"  type="text" id="handle" name="handle" placeholder="Handle..." 
+      style="
+        padding: 9px 12px 6px 27px; 
+        font: 16px system-ui;
+        height: 100% ;
+        width: 48%;
+        text-align: left;
+        display: inline;
+        "
+    >
+    <label> Country </label>
+    <select class="form-control" name="country" id="country" style="width: 48%; display: inline;">
+      <option value="%">Any</option> 
+      {% for country in countries %} 
+        <option value="{{country[0]}}"> {{ country[0] }} </option>
+      {% endfor %}
+    </select>
+
+
+    <br />
+
+      <div class="row" >
+
+        <div class="col-md-3" style="justify-content: center; align-items: center; display: inline;">
+          <label style="height: 100%; font-size: large; border: none;">  Rating
+
+          <select class="form-control" name="ratcmp" id="ratcmp" style="width: auto; height: auto; display: inline;">
+            <option value="ge"> &ge; </option>
+            <option value="le"> &le; </option>
+            <option value="lt"> &lt; </option>
+            <option value="gt"> &gt; </option>
+          </select></label>
+
+          <input class=form-control type="text" id="rating" name="rating" placeholder="Rating..." 
+            style="
+              text-align: right;
+              font: 16px system-ui;
+              text-align: center;
+              display: inline;
+              height: auto;
+              width:  auto;
+              "
+          >
+        </div>
+
+        <div class="col-md-3" style="justify-content: center; align-items: center; display: inline;">
+          <label style="height: 100%; font-size: large; border: none; padding: 0px;">  Contrib. 
+
+
+          <select class=form-control name="ctrbcmp" id="ctrbcmp" style="width: auto; height: auto; display: inline;">
+            <option value="ge"> &ge; </option>
+            <option value="le"> &le; </option>
+            <option value="lt"> &lt; </option>
+            <option value="gt"> &gt; </option>
+          </select>
+          </label>
+          <input class="form-control" type="text" id="contribution" name="contribution" placeholder="Contrib..." 
+            style="text-align: right;
+              font: 16px system-ui;
+              display:  inline;
+              padding: 9px 12px 6px 0px; 
+              width: auto;
+              text-align: center;"
+          >
+
+        </div>
+        <div class="col-md-3" style="justify-content: center; align-items: center; display: inline;">
+          <label style="height: 100%; font-size: large; border: none; padding: 0px;">  Followers 
+
+          <select class=form-control name="followcmp" id="followcmp" style="width:auto; height: auto; display: inline;">
+            <option value="ge"> &ge; </option>
+            <option value="le"> &le; </option>
+            <option value="lt"> &lt; </option>
+            <option value="gt"> &gt; </option>
+          </select>
+          </label>
+          <input class=form-control type="text" id="numfollowers" name="numfollowers" placeholder="# followers" style="text-align: right;
+                            font: 16px system-ui;
+                            padding: 9px 12px 6px 0px; 
+                            text-align: center;
+                            display:  inline;
+                            width: auto;
+          ">
+
+        </div>
+        <div class="col-md-3" style="justify-content: center; align-items: center; display: inline;">
+          <label style="height: 100%; font-size: large; border: none; padding: 0px;"> Contests 
+
+          <select class=form-control name="cnstcmp" id="cnstcmp" style="width:auto; height: auto; display: inline;">
+            <option value="ge"> &ge; </option>
+            <option value="le"> &le; </option>
+            <option value="lt"> &lt; </option>
+            <option value="gt"> &gt; </option>
+
+          </select>
+          </label>
+          <input class=form-control type="text" id="numcontests" name="numcontests" placeholder="# contest" 
+            style="text-align: right;
+              font: 16px system-ui;
+              padding: 9px 12px 6px 0px; 
+              text-align: center;
+              display:  inline;
+              width: auto;
+          ">
+        </div>
+      </div>
+
+
+    <div class="row justify-content-center" style="display: flex;">
+      <button type="submit" style="display: block; width: 15%;">Search</button>
+    </div>
+ </form>
+
+
+  <table class="table table-hover table-light">
+    <thead style="background-color: navajowhite">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col"> Handle </button></th>
+        <!-- <th scope="col"> Handle <button class="toggle" onclick="toggle_sort_handle('{{ url_for(request.endpoint, **request.view_args) }}')"> &varr;  </button></th> --!>
+        <th scope="col">  Rating</th>
+        <th scope="col">  Contribution </th>
+        <th scope="col">  Followers </th>
+        <th scope="col">  Contests </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+
+      <!--Users is a 2 tuple (handle, rating, contribution, followers) -->
+
+      <tr>
+        <td>{{ loop.index + 100*(curr_page-1) }}</td>
+        <td>
+          <a href="{{url_for('views.profile', handle=user[0]) }} ">
+            {{ user[0] }}</a
+          >
+        </td>
+        <td>{{ user[1] }}</td>
+        <td>{{ user[2] }}</td>
+        <td>{{ user[3] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="row justify-content-center">
+  <!--TODO: make this functioning --!>
+    {% if first_page    %}
+      <a href="#"> Prev Page </a>
+    {% else %}
+      <a href="{{ url_for('views.users') + '?pageNo=' + (curr_page-1)|string }}"> Prev Page </a>
+    {% endif %}
+
+    <a href="#"> {{ curr_page}} </a>
+
+    {% if last_page   %}
+      <a href="#"> Next Page </a>
+    {% else %}
+      <a href="{{ url_for('views.users') + '?pageNo=' + (curr_page+1)|string }}"> Next Page </a>
+    {% endif %}
+
+    ....
+  </div>
+</div>
+
+<script>
+    // Code from https://stackoverflow.com/questions/17591447/how-to-reload-current-page-without-losing-any-form-data
+    // Run on page load
+    window.onload = function() {
+
+        // If sessionStorage is storing default values (ex. name), exit the function and do not restore data
+        if (sessionStorage.getItem('handle') == "handle") {
+            return;
+        }
+
+        // If values are not blank, restore them to the fields
+        var handle = sessionStorage.getItem('handle');
+        if (handle !== null) $('#handle').val(handle)
+
+        var rating = sessionStorage.getItem('rating');
+        if (rating !== null) $('#rating').val(rating)
+
+        var country = sessionStorage.getItem('country');
+        if (country !== null) $('#country').val(country)
+
+        var contribution = sessionStorage.getItem('contribution');
+        if (contribution !== null) $('#contribution').val(contribution)
+
+
+        var numfollowers = sessionStorage.getItem('numfollowers');
+        if (numfollowers !== null) $('#numfollowers').val(numfollowers)
+
+        var numcontests = sessionStorage.getItem('numcontests');
+        if (numcontests !== null) $('#numcontests').val(numcontests)
+
+        var fcmp = sessionStorage.getItem('fcmp');
+        if (fcmp !== null) $('#fcmp').val(fcmp)
+
+        var ratcmp = sessionStorage.getItem('ratcmp');
+        if (ratcmp !== null) $('#ratcmp').val(ratcmp)
+
+        var ctrbcmp = sessionStorage.getItem('ctrbcmp');
+        if (ctrbcmp !== null) $('#ctrbcmp').val(ctrbcmp)
+
+        var cnstcmp = sessionStorage.getItem('cnstcmp');
+        if (cnstcmp !== null) $('#cnstcmp').val(cnstcmp)
+
+    }
+
+    // Before refreshing the page, save the form data to sessionStorage
+    window.onbeforeunload = function() {
+        sessionStorage.setItem("handle", $('#handle').val());
+        sessionStorage.setItem("rating", $('#rating').val());
+        sessionStorage.setItem("country", $('#country').val());
+        sessionStorage.setItem("contribution", $('#contribution').val());
+        sessionStorage.setItem("numfollowers", $('#numfollowers').val());
+        sessionStorage.setItem("numcontests", $('#numcontests').val());
+        sessionStorage.setItem("fcmp", $('#fcmp').val());
+        sessionStorage.setItem("ratcmp", $('#ratcmp').val());
+        sessionStorage.setItem("ctrbcmp", $('#ctrbcmp').val());
+        sessionStorage.setItem("cnstcmp", $('#cnstcmp').val());
+    }
+</script>
+
+{% endblock %}

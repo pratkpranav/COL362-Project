@@ -1,0 +1,163 @@
+{% extends "base.html" %} {% block title%} Search Users {% endblock %} {% block
+content %}
+
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-md-3">
+
+      <div class="card">
+        <div class="card-body">
+          <form method= "POST" id="form">
+            <label style="height: 100%; font-size: large; border: none; color: black;">  Rating
+
+            <select class="form-control" name="ratcmp" id="ratcmp" style="width: auto; height: auto; display: inline;">
+              <option value="ge"> &ge; </option>
+              <option value="le"> &le; </option>
+              <option value="lt"> &lt; </option>
+              <option value="gt"> &gt; </option>
+            </select></label>
+
+            <input class=form-control type="text" id="rating" name="rating" placeholder="Rating..." 
+              style="
+                text-align: right;
+                font: 16px system-ui;
+                text-align: center;
+                display: inline;
+                height: auto;
+                width:  auto;
+                "
+            >
+
+
+            <div class="tag-wrapper" style="align-items: center; justify-content: center; display: flex;">
+              <!--  code from https://stackoverflow.com/questions/30190588/html-select-multiple-as-dropdown --!>
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
+              <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script> 
+              <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
+              <select data-placeholder="Select Tags" multiple class="chosen-select" id="tags" name="tags"> 
+               <option value=""> "" </option>
+               {%  for tag in all_tags  %} 
+               <option value="{{tag}}"> {{tag}} </option>
+               {% endfor %}
+              </select>
+            </div>
+
+
+
+
+              <br />
+
+              <div class="row justify-content-center" style="position: relative;">
+                <button type="submit">Search</button>
+              </div>
+
+         </form>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-9">
+      <table class="table table-hover table-light">
+        <thead style="background-color: navajowhite">
+          <tr>
+            <th scope="col">#</th>
+            <!-- <th scope="col"> Handle <button class="toggle" onclick="toggle_sort_handle('{{ url_for(request.endpoint, **request.view_args) }}')"> &varr;  </button></th> --!>
+            <th scope="col">  Rating</th>
+            <th scope="col">  ContestId </th>
+            <th scope="col">  Index </th>
+            <th scope="col">  Problem </th>
+            <!-- <th scope="col">  Contests </th> --!>
+          </tr>
+        </thead>
+        <tbody>
+          {% for problem in problems %}
+
+
+          <tr>
+          <td> {{ 100*(curr_page-1) + loop.index }} </td>
+            <td>{{ problem.rating  }}</td>
+            <td>
+              <a href="#">
+                {{ problem.contestId }}</a
+              >
+            </td>
+            <td> <a href="{{url_for('views.problem', id=problem.contestId, index=problem.problemIndex )}}"> {{ problem.problemIndex }} </a> </td>
+            <td> <a href="{{url_for('views.problem', id=problem.contestId, index=problem.problemIndex )}}"> {{ problem.name }} </a> </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+  <!--TODO: make this functioning --!>
+    {% if first_page    %}
+      <a href="#"> Prev Page </a>
+    {% else %}
+      <a href="{{ url_for('views.problemSet') + '?pageNo=' + (curr_page-1)|string }}"> Prev Page </a>
+    {% endif %}
+
+    <a href="#"> {{ curr_page}} </a>
+
+    {% if last_page   %}
+      <a href="#"> Next Page </a>
+    {% else %}
+      <a href="{{ url_for('views.problemSet') + '?pageNo=' + (curr_page+1)|string }}"> Next Page </a>
+    {% endif %}
+
+  </div>
+
+</div>
+
+<script>
+$(".chosen-select").chosen({
+  no_results_text: "Oops, nothing found!"
+})
+</script>
+
+<script>
+    // Code from https://stackoverflow.com/questions/17591447/how-to-reload-current-page-without-losing-any-form-data
+    // Run on page load
+    window.onload = function() {
+
+        // If sessionStorage is storing default values (ex. name), exit the function and do not restore data
+        if (sessionStorage.getItem('prob_rating') == "prob_rating") {
+            return;
+        }
+        
+
+        var rating = sessionStorage.getItem('prob_rating');
+        if (rating !== null) $('#rating').val(rating)
+
+
+
+        /*
+        var tags = sessionStorage.getItem("tags");
+        $('#tags option').filter(function () {
+        return $.inArray( $(this).text(), tags.split('-'))>-1;
+        }).prop('selected', true);  
+        sessionStorage.removeItem("tags");
+           */
+
+    }
+
+    // Before refreshing the page, save the form data to sessionStorage
+    window.onbeforeunload = function() {
+        sessionStorage.setItem("prob_rating", $('#rating').val());
+
+        /*
+        var tags = [];
+        $("#tags option:selected").each(function(){
+          tags.push( $(this).text() );
+        });
+
+        sessionStorage.setItem("tags",  tags.join('-'));
+         */
+    }
+</script>
+
+{% endblock %}

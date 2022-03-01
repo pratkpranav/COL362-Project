@@ -1,0 +1,178 @@
+{% extends "base.html" %} {% block title %} Create Contest {% endblock %} {%
+block content %}
+
+<div class="container-fluid" style="background-color: snow; padding-top: 2%; align-items: center;  justify-content: center; display: flex; width: 80%; display:table">
+  <!--code from https://stackoverflow.com/questions/31291645/add-input-fields-in-form-when-dropdown-option-selected-->
+  <form method="post" id="new_contest_problems" enctype='multipart/form-data'>
+
+  <h1 style="color: black; text-align: center;"> Create New Contest </h1>
+  <br />
+  <div class="wrapper" style="justify-content: center; align-items: center; display: flex;">
+  <input class=form-control type="text" id="name" name="contest_name" placeholder="Contest Name..."  required
+    style="
+      text-align: left;
+      font: 24px system-ui;
+      text-align: center;
+      height: auto;
+      width:  60%;
+      "
+  >
+  </div>
+  <div class="wrapper" style="justify-content: center; align-items: center; display: flex;">
+  <input class=form-control type="text" id="start_after" name="start_after" placeholder="Start After..."  required
+    style="
+      text-align: left;
+      font: 24px system-ui;
+      text-align: center;
+      height: auto;
+      width:  20%;
+      "
+  >  
+  <input class=form-control type="text" id="duration" name="duration" placeholder="Length(in min)"  required
+    style="
+      text-align: left;
+      font: 24px system-ui;
+      text-align: center;
+      height: auto;
+      width:  20%;
+      "
+  >
+
+
+  </div>
+
+
+  <br />
+
+<table class="table table-hover table-light" style="width: 100% !important; table-layout: auto;" id="new_problems">
+    <thead style="background-color: navajowhite;">
+      <tr>
+        <th scope="col" style="width:4%;"> Index </th>
+        <th scope="col" style="width: 13%;">  Rating</th>
+        <th scope="col" style="width:25%">  Name</th>
+        <th scope="col" style="width: 5% !important;">  Statement </th>
+        <th scope="col" style="width: 10%">  Points </th>
+        <th scope="col">  Tags </th>
+      </tr>
+    </thead>
+
+    <tbody>
+        <link
+        href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css"
+        rel="stylesheet"
+        />
+
+
+
+
+
+    </tbody>
+  </table>
+  
+      <div class="row justify-content-center" style="display: flex;">
+      <button type="submit" style="display: block; width: 15%;"> Submit </button>
+    </div>
+
+
+  </form>
+
+  <!--<h4 style="color: black; width: 100%; position: relative;"> Index, Rating, Name, Statement Points, Tags  </h4>-->
+
+
+  <div class="row justify-content-center" style="display: flex;">
+  <button type="button" onclick="add_problem()" style="display: block;height: 100%; width: 15%;">Add Problem</button>
+
+  <button type="button" onclick="remove_problem()" style="display: block;height: 100%; width: 15%;">Delete Problem</button>
+
+  <!-- <select data-placeholder="Select Tags" multiple class="chosen-select form-control" id="tags" name="tags" style="width: 100%; height: 100%; font-size: larger; max-height: 5px; overflow: scroll;"> --!>
+
+  </div>
+
+
+
+
+<!--
+   -  <label style="color: black; font-size: larger;"> Add problems </label>
+   -  <select id="num_problems" style="width: 30%; ">
+   -    <option>Number of Problems</option>
+   -    <option value="1">1</option>
+   -    <option value="2">2</option>
+   -    <option value="3">3</option>
+   -    <option value="4">4</option>
+   -    <option value="5">5</option>
+   -    <option value="6">6</option>
+   -    <option value="7">7</option>
+   -    <option value="8">8</option>
+   -    <option value="9">9</option>
+   -    <option value="10">10</option>
+   -    <option value="12">12</option>
+   -    <option value="13">13</option>
+   -    <option value="14">14</option>
+   -    <option value="15">15</option>
+   -  </select>
+   -
+  -->
+
+</div>
+<script>
+$(".chosen-select").chosen({
+  no_results_text: "Oops, nothing found!"
+})
+</script>
+
+<template id="new_problem">
+
+        <tr>
+        <td>  </td>
+        <td>
+          <input class=form-control type="text" id="rating" name="rating" placeholder="Rating"  required
+              style="
+                text-align: left;
+                font: 24px system-ui;
+                text-align: center;
+                height: auto;
+                "
+            >
+        </td>
+        <td> 
+            <input class=form-control type="text" id="name" name="name" placeholder="Name"  required
+              style="
+                text-align: left;
+                font: 24px system-ui;
+                text-align: center;
+                height: auto;
+                "
+            >
+
+        </td>
+        <td>
+              <input type="file", id="file", name = "file"  required/>
+
+        </td>
+        <td> 
+            <input class=form-control type="text" id="points" name="points" placeholder="Points"  required
+              style="
+                text-align: left;
+                font: 24px system-ui;
+                text-align: center;
+                height: auto;
+                "
+            >
+        </td>
+        <td>
+
+
+              <select data-placeholder="Select Tags" multiple class="chosen-select form-control" id="tags" name="tags" style="width: 100%; height: 100%; font-size: larger;" > 
+               {%  for tag in all_tags  %} 
+               <option value="{{tag}}"> {{tag}} </option>
+               {% endfor %}
+
+              </select>
+
+        </td>
+
+      </tr>
+
+</template>
+
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends "base.html" %} {% block title %} Problem   {% endblock %} {% block content
+%}
+
+
+<div class="row">
+
+  <div class="col-md-1" style="background-color: white;">
+
+  </div>
+  <div class="col-md-7" style="padding: 4%; background-color: white;">
+
+    <img class="img-fluid" src="{{url_for('static', filename=problem.url )}}" 
+     style="width: 100%;"
+    alt="Image">
+
+  </div>
+  <div class="col-md-1" style="background-color: white;">
+
+  </div>
+  <div class="col-md-3" style="padding-right: 4%;">
+
+    <div class="card" style="height: fit-content;" >
+        <div class="card-body" style="outline-style:groove; outline-color: green; outline-offset: 0px; outline-width: 10px; background-color: white;">
+          
+        <!-- Replace by contest name  --!>
+          <h4 style="color: black; text-align:center; font-weight:600; font-family: Tahoma"> {{ contest.contestName }}  </h4>
+          <hr style="color: white; background-color: white;"> 
+          <h3 style="color: black; text-align: center; font-weight:100; font-family: sans-serif"> {{ contest.contestDate.strftime("%Y-%m-%d") }} </h3>
+          <h3 style="color: black; text-align: center;"> Finished </h3>
+
+        </div>
+
+    </div>
+
+
+    <br />
+    <br />
+    <br />
+
+    <div class="card" style="height: fit-content;" >
+        <div class="card-body" style="outline-style:groove; outline-color: green; outline-offset: 0px; outline-width: 10px; background-color: white;">
+          
+        <!-- Replace by contest name  --!>
+          <h3 style="color: blue; text-align: left; padding: 0px;"> Submit <h3>
+          <hr style="color: blue; background-color: blue;"> 
+
+          <form method="POST" id="form">
+              <label style="color: black; font-size: medium"> Language </label>
+              <select class="form-control" name="Language" id="Language">
+
+              <option value="MS C++ 2017">MS C++ 2017 </option>
+              <option value="Delphi">Delphi</option>
+              <option value="Java 7">Java 7</option>
+              <option value="PyPy 3-64">PyPy 3-64</option>
+              <option value="Ruby 3">Ruby 3</option>
+              <option value="D">D</option>
+              <option value="GNU C++">GNU C++</option>
+              <option value="GNU C++11">GNU C++11</option>
+              <option value="Rust">Rust</option>
+              <option value="Java 8">Java 8 </option>
+              <option value="Rub">Rub</option>
+              <option value="JavaScrip">JavaScrip</option>
+              <option value="PyPy">PyPy</option>
+              <option value="Node.js">Node.js</option>
+              <option value="FALSE">FALSE</option>
+              <option value="PHP">PHP</option>
+              <option value="GNU C++17">GNU C++17</option>
+              <option value="Io">Io</option>
+              <option value="Python 3">Python 3</option>
+              <option value="GNU C++17 (64)">GNU C++17 (64)</option>
+              <option value="Picat">Picat </option>
+              <option value="Python 2">Python 2</option>
+              <option value="MS C#">MS C#</option>
+              <option value="GNU C++0x">GNU C++0x</option>
+              <option value="PyPy 2">PyPy 2</option>
+              <option value="Scala">Scala</option>
+              <option value="GNU C++17 Diagnostics">GNU C++17 Diagnostics</option>
+
+              </select>
+
+              </label>
+
+
+              <!-- <div class="wrapper" style="text-align: center;"> --!>
+              <input type="file" id="submission_file" style="display:block; margin:auto; padding: 15px; width: 200px"> 
+                <!-- </div> --!>
+              <div class="row justify-content-center" style="display: flex;">
+                <button type="submit" style="display: flex; text-decoration: none; background-color: #e7e7e7; border: 2px solid #4CAF50;"> Submit </button>
+              </div>
+          </form>
+
+        </div>
+
+     
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+     <div class="card" style="height: fit-content;" >
+     <div class="card-body" style="outline-style:groove; outline-color: green; outline-offset: 0px; outline-width: 10px; background-color: white;">
+
+     <h3 style="color: blue; text-align: left; padding: 0px;"> <p class="flip" onclick="showTags()" style="color: black;"> Tags: </p> <h3>
+          <hr style="color: blue; background-color: blue;"> 
+          
+        <!-- Replace by contest name  --!>
+          <div id="panel" style="display: none;">
+          <p style="color: grey;"> {% for tag in problem.tags %}
+                  '{{tag}}' &nbsp;
+              {% endfor %}
+            </p>
+
+          </div>
+
+     </div>
+     </div>
+
+
+
+    </div>
+
+
+  </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends "base.html" %} {% block title %} {{ contest.contestName }} {%
+    endblock %} 
+    {% block content %}
+    <div class="container-fluid" style="padding-top: 2%; padding-left: 5%; padding-right: 5%;">
+    <div class="contestnav">
+      <a
+        class="active"
+        href="#"
+        >Contest</a
+      >
+      {% if contest.contestId >= 1634 %}
+      {% else %}
+      <a href="{{url_for('views.contest_standings', contestId=contest.contestId)}}"
+          >Standing</a
+        >
+      {% endif %}
+      <a href="{{ url_for('views.submissions', id=contest.contestId)  }}"> My Submissions </a>
+    </div>
+    <style>
+      .contestnav {
+        background-color: #333;
+        overflow: hidden;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+      }
+    
+      .contestnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        margin: auto;
+        width: 100%;
+      }
+    
+      .contestnav a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+    
+      .contestnav a.active {
+        background-color: #04aa6d;
+        color: white;
+        width: 100%;
+      }
+    </style>
+    
+    <table class="table table-hover table-light">
+        <caption
+          style="
+            caption-side: top;
+            background-color: white;
+            font-size: larger;
+            text-align: center;
+            color: black;
+            font-family: 'Times New Roman', Times, serif;
+          "
+        >
+        {{  contest.contestName }}
+        </caption>
+        <thead style="background-color: navajowhite">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Problem ID</th>
+            <th scope="col">Problem Name</th>
+            <th scope="col">Points </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for problem in contest_problems %}
+
+          <!--Users is a 2 tuple (handle, rating) -->
+
+          {% if loop.index % 2 == 0 %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ problem.problemIndex }}</td>
+            <td>
+              <a href="{{ url_for('views.problem', id=problem.contestId, index=problem.problemIndex )}}">
+                {{ problem.name }}</a
+              >
+            </td>
+
+            <td>
+                {{ problem.points }}
+            </td>
+          </tr>
+          {% else %}
+          <tr style="background-color: lightgray">
+            <td>{{ loop.index }}</td>
+            <td>{{ problem.problemIndex }}</td>
+            <td>
+              <a href="{{ url_for('views.problem', id=problem.contestId, index=problem.problemIndex )}}">
+                {{ problem.name }}</a
+              >
+            </td>
+            <td>
+                {{ problem.points }}
+            </td>
+          </tr>
+          {%endif%} {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% block title %} Sign Up {% endblock %}
+
+{% block content %}
+
+<body class="text-center">
+  <div class="container" style="max-width: 50%;">
+
+    <form method="POST">
+      <br />
+      <br />
+      <h2 align="center"> Please Create Your Account</h2>
+      <br />
+      <div class="form-group required">
+        <label class="col-md-4 control-label">Handle</label>
+          <input type="text" class="form-control" id="handle" name="handle" required="required"  placeholder="Enter Handle" />
+      </div>
+
+      <div class="form-group required">
+        <label class="col-md-4 control-label">First Name</label>
+        <input type="text" class="form-control" id="firstname" name="firstname" required="required" placeholder="Enter First Name" />
+      </div>
+
+
+      <div class="form-group">
+        <label class="col-md-4 control-label">Last Name</label>
+        <input type="text" class="form-control" id="lastname" name="lastname"  placeholder="Enter Last Name" />
+      </div>
+
+
+      <div class="form-group">
+        <label class="col-md-4 control-label">Country</label>
+        <input type="text" class="form-control" id="country" name="country" placeholder="Enter Country" />
+      </div>
+
+      <div class="form-group required">
+        <label class="col-md-4 control-label">Password</label>
+        <input type="password" class="form-control" id="password1" name="password1" required="required" placeholder="Enter password" />
+      </div>
+
+      <div class="form-group required">
+        <label class="col-md-4 control-label">Password(Confirm)</label>
+        <input type="password" class="form-control" id="password2" name="password2" required="required" placeholder="Confirm password" />
+      </div>
+
+      <br />
+      <button type="submit" class="btn btn-lg btn-block btn-primary">Submit</button>
+      <br />
+      <br />
+    </form>
+  </div>
+</body>
+
+{% endblock %}
